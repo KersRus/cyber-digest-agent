@@ -126,19 +126,31 @@ def classify_news(news_items):
 
     raw = response.choices[0].message.content.strip()
 
+    # ─── ОТЛАДКА ───
+    print("[DEBUG] Сырой ответ модели (первые 3000 символов):")
+    print(raw[:3000])
+    print(f"[DEBUG] Длина ответа: {len(raw)} символов")
+    print(f"[DEBUG] Finish reason: {response.choices[0].finish_reason}")
+    # ────────────────
+
     if raw.startswith("```"):
         raw = raw.split("\n", 1)[1].rsplit("```", 1)[0]
 
     try:
         parsed = json.loads(raw)
-    except json.JSONDecodeError:
-        print("[WARN] LLM вернула не-JSON, пропускаем классификацию")
+    except json.JSONDecodeError as e:
+        print(f"[WARN] LLM вернула не-JSON: {e}")
         return []
+
+    print(f"[DEBUG] Тип распарсенного объекта: {type(parsed).__name__}")
+    if isinstance(parsed, dict):
+        print(f"[DEBUG] Ключи словаря: {list(parsed.keys())}")
 
     if isinstance(parsed, dict) and isinstance(parsed.get("items"), list):
         return parsed["items"]
     if isinstance(parsed, list):
         return parsed
+    print("[WARN] Не удалось извлечь массив items из ответа LLM")
     return []
 
 # ──────────────────────────────────────────────
