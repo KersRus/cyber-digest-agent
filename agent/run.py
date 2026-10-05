@@ -20,7 +20,7 @@ RSS_FEEDS = [
     "https://www.kaspersky.ru/blog/feed/",
 ]
 
-DAYS_BACK = 2
+DAYS_BACK = 1
 
 SYSTEM_PROMPT = """
 Ты — аналитик кибербезопасности. На вход подаётся JSON-массив новостей
