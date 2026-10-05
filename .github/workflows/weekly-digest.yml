@@ -3,7 +3,7 @@ name: Weekly Cyberattack Digest
 on:
   schedule:
     # Каждый вторник в 06:00 UTC = 09:00 МСК
-    - cron: '0 6 * * 1'
+    - cron: '0 6 * * 2'
   workflow_dispatch:  # ручной запуск для теста
 
 jobs:
