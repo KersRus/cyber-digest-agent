@@ -50,7 +50,7 @@ jobs:
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: "🛡 Еженедельный дайджест кибератак"
           to: ${{ secrets.EMAIL_RECIPIENTS }}
-          from: Cyber Digest Agent
+          from: ${{ secrets.SMTP_USER }}
           html_body: file://digest.html
           nodemailerlog: true
           nodemailerdebug: true
