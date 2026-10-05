@@ -24,7 +24,7 @@ jobs:
 
       - name: Run agent
         env:
-          OPENAI_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python agent/run.py
 
       - name: Send email
