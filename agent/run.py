@@ -16,7 +16,7 @@ RSS_FEEDS = [
     "https://www.kommersant.ru/rss/",
 ]
 
-DAYS_BACK = 7
+DAYS_BACK = 14
 
 SYSTEM_PROMPT = """
 Ты — аналитик кибербезопасности. На вход подаётся JSON-массив новостей
