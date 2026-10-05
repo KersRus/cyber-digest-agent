@@ -14,9 +14,12 @@ RSS_FEEDS = [
     "https://safe.cnews.ru/rss/",
     "https://www.tadviser.ru/rss/",
     "https://www.kommersant.ru/rss/",
+    "https://xakep.ru/feed/",
+    "https://habr.com/ru/rss/hubs/infosecurity/all/",
+    "https://www.securitylab.ru/_Services/Export/RSS/news/"
 ]
 
-DAYS_BACK = 14
+DAYS_BACK = 7
 
 SYSTEM_PROMPT = """
 Ты — аналитик кибербезопасности. На вход подаётся JSON-массив новостей
