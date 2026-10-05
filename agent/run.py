@@ -122,7 +122,11 @@ def classify_news(news_items):
     )
 
     user_content = json.dumps(news_items, ensure_ascii=False, indent=2)
-
+    # ─── ОТЛАДКА ВХОДА ───
+    print(f"[DEBUG] Отправляем в модель {len(news_items)} новостей")
+    print("[DEBUG] Пример первой новости:")
+    print(json.dumps(news_items[0], ensure_ascii=False, indent=2)[:500])
+    # ────────────────────
     response = client.chat.completions.create(
         model=f"gpt://{folder_id}/yandexgpt/latest",
         messages=[
