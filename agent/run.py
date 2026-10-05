@@ -16,7 +16,7 @@ RSS_FEEDS = [
     "https://www.kommersant.ru/rss/",
     "https://xakep.ru/feed/",
     "https://habr.com/ru/rss/hubs/infosecurity/all/",
-    "https://www.securitylab.ru/_Services/Export/RSS/news/"
+    "https://www.securitylab.ru/_Services/Export/RSS/news/",
 ]
 
 DAYS_BACK = 7
