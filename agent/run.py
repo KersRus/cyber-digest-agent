@@ -97,28 +97,31 @@ def fetch_news():
     return unique
 
 # ──────────────────────────────────────────────
-# 3. КЛАССИФИКАЦИЯ ЧЕРЕЗ DEEPSEEK
+# 3. КЛАССИФИКАЦИЯ ЧЕРЕЗ YANDEXGPT
 # ──────────────────────────────────────────────
 
 def classify_news(news_items):
     if not news_items:
         return []
 
+    folder_id = os.environ["YANDEX_FOLDER_ID"]
+
     client = OpenAI(
-        api_key=os.environ["DEEPSEEK_API_KEY"],
-        base_url="https://api.deepseek.com",
+        api_key=os.environ["YANDEX_API_KEY"],
+        base_url="https://llm.api.cloud.yandex.net/v1",
+        project=folder_id,
     )
 
     user_content = json.dumps(news_items, ensure_ascii=False, indent=2)
 
     response = client.chat.completions.create(
-        model="deepseek-chat",
+        model=f"gpt://{folder_id}/yandexgpt-lite/latest",
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": user_content},
         ],
         temperature=0.1,
-        response_format={"type": "json_object"},
+        max_tokens=2000,
     )
 
     raw = response.choices[0].message.content.strip()
@@ -132,10 +135,8 @@ def classify_news(news_items):
         print("[WARN] LLM вернула не-JSON, пропускаем классификацию")
         return []
 
-    # Ожидаем {"items": [...]}
     if isinstance(parsed, dict) and isinstance(parsed.get("items"), list):
         return parsed["items"]
-    # На случай, если модель всё же вернула массив
     if isinstance(parsed, list):
         return parsed
     return []
