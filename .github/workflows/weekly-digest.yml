@@ -1,1 +1,42 @@
+name: Weekly Cyberattack Digest
 
+on:
+  schedule:
+    # Каждый понедельник в 06:00 UTC = 09:00 МСК
+    - cron: '0 6 * * 1'
+  workflow_dispatch:  # ручной запуск для теста
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install feedparser openai
+
+      - name: Run agent
+        env:
+          OPENAI_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: python agent/run.py
+
+      - name: Send email
+        if: hashFiles('digest.html') != ''
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.yandex.ru
+          server_port: 465
+          secure: true
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "🛡 Еженедельный дайджест кибератак"
+          to: ${{ secrets.EMAIL_RECIPIENTS }}
+          from: Cyber Digest Agent
+          html_body: file://digest.html
