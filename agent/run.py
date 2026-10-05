@@ -12,11 +12,12 @@ RSS_FEEDS = [
     "https://www.anti-malware.ru/news/feed",
     "https://www.securitylab.ru/rss/",
     "https://safe.cnews.ru/rss/",
-    "https://www.tadviser.ru/rss/",
+    "https://infoforum.ru/feed/",
     "https://www.kommersant.ru/rss/",
     "https://xakep.ru/feed/",
     "https://habr.com/ru/rss/hubs/infosecurity/all/",
     "https://www.securitylab.ru/_Services/Export/RSS/news/",
+    "https://www.kaspersky.ru/blog/feed/",
 ]
 
 DAYS_BACK = 7
